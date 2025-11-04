@@ -1,0 +1,8 @@
+text = input("Введите текст: ")
+search_word = input("Введите слово для поиска: ")
+count = text.count(search_word)
+first_index = text.find(search_word)
+cleaned_text = text.replace(search_word, "")
+print("Количество встреч:", count)
+print("Индекс первого вхождения:", first_index)
+print("Текст без слова:", cleaned_text)
