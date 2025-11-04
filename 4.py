@@ -1,6 +1,6 @@
-text = input("Введите текст: ")
-range_input = input("Введите диапазон: ").split()
-start = int(range_input[0]) - 1
-end = int(range_input[1])
-result = text[start:end]
-print(result)
+year = int(input("Введите год: "))
+
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print(f"{year} год - високосный")
+else:
+    print(f"{year} год - не високосный")
