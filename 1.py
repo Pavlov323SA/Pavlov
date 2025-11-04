@@ -1,12 +1,9 @@
-direction = input("Введите направление: ")
+num = int(input("Введите положительное целое число: "))
+total = 0
 
-if direction == "left":
-    print("Иду влево")
-elif direction == "right":
-    print("Иду вправо")
-elif direction == "straight":
-    print("Иду прямо")
-elif direction == "back":
-    print("Иду назад")
-else:
-    print("Неправильное направление")
+while num > 0:
+    digit = num % 10
+    total += digit
+    num = num // 10
+
+print(total)

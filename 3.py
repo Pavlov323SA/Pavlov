@@ -1,9 +1,16 @@
-text = input("Введите текст: ")
-word = input("Введите слово для поиска: ")
+text = input("Введите строку: ").lower().replace(" ", "")
+left = 0
+right = len(text) - 1
+is_palindrome = True
 
-if word in text:
-    count = text.count(word)
-    print(f"Слово '{word}' найдено в тексте")
-    print(f"Количество вхождений: {count}")
+while left < right:
+    if text[left] != text[right]:
+        is_palindrome = False
+        break
+    left += 1
+    right -= 1
+
+if is_palindrome:
+    print("Да, это палиндром")
 else:
-    print(f"Слово '{word}' не найдено в тексте")
+    print("Нет, это не палиндром")
