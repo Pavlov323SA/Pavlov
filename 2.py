@@ -1,9 +1,11 @@
-count = 0
+password = input("Введите пароль: ")
+confirm = input("Подтвердите пароль: ")
 
-while True:
-    num = int(input("Введите число: "))
-    if num == 0:
-        break
-    count += 1
-
-print(count)
+if password == confirm:
+    auth = input("Введите пароль для авторизации: ")
+    if auth == password:
+        print("Access")
+    else:
+        print("Denied")
+else:
+    print("Пароли не совпадают")

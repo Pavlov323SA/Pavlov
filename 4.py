@@ -1,14 +1,6 @@
-from random import randint
+year = int(input("Введите год: "))
 
-random_num = randint(1, 100)
-
-while True:
-    guess = int(input("Угадайте число от 1 до 100: "))
-    
-    if guess == random_num:
-        print("Угадал!")
-        break
-    elif guess > random_num:
-        print("Меньше")
-    else:
-        print("Больше")
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print(f"{year} год - високосный")
+else:
+    print(f"{year} год - не високосный")
