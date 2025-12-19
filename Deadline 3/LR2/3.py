@@ -1,0 +1,12 @@
+def fibonacci(n):
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+
+if __name__ == "__main__":
+    for num in fibonacci(6):
+        print(num)
