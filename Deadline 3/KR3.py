@@ -1,0 +1,31 @@
+def power_factory(exponent):
+    def power(number):
+        return number ** exponent
+    return power
+
+
+class MathTools:
+    @classmethod
+    def create_power_list(cls, numbers, n):
+        power_func = power_factory(n)
+        return [power_func(num) for num in numbers]
+
+
+if __name__ == "__main__":
+    square = power_factory(2)
+    cube = power_factory(3)
+    
+    print("Тестирование замыкания:")
+    print(f"square(4) = {square(4)}")
+    print(f"cube(3) = {cube(3)}")
+    print(f"square(5) = {square(5)}")
+    
+    numbers = [1, 2, 3, 4, 5]
+    
+    print("\nТестирование класса MathTools:")
+    squares = MathTools.create_power_list(numbers, 2)
+    cubes = MathTools.create_power_list(numbers, 3)
+    
+    print(f"Исходный список: {numbers}")
+    print(f"Квадраты: {squares}")
+    print(f"Кубы: {cubes}")
