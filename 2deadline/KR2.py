@@ -1,60 +1,60 @@
-def process_orders(stock_list: list[dict], orders_list: list[dict]) -> tuple[float, list[dict], list[dict]]:
-    updated_stock = [item.copy() for item in stock_list]
+def обработать_заказы(склад, заказы):
+    копия_склада = []
+    for товар in склад:
+        копия_склада.append(товар.copy())
     
-    stock_dict = {item["id"]: item for item in updated_stock}
+    словарь_товаров = {}
+    for товар in копия_склада:
+        словарь_товаров[товар["id"]] = товар
     
-    total_revenue = 0.0
-    canceled_orders = []
+    выручка = 0.0
+    невыполненные_заказы = []
     
-    for order in orders_list:
-        product_id = order["id"]
-        requested_count = order["count"]
+    for заказ in заказы:
+        id_товара = заказ["id"]
+        нужное_количество = заказ["count"]
         
-        if product_id not in stock_dict:
-            canceled_orders.append(order)
+        if id_товара not in словарь_товаров:
+            невыполненные_заказы.append(заказ)
             continue
         
-        product = stock_dict[product_id]
+        товар_на_складе = словарь_товаров[id_товара]
         
-        if product["qty"] >= requested_count:
-            product["qty"] -= requested_count
-            total_revenue += product["price"] * requested_count
+        if товар_на_складе["qty"] >= нужное_количество:
+            товар_на_складе["qty"] -= нужное_количество
+            выручка += товар_на_складе["price"] * нужное_количество
         else:
-            canceled_orders.append(order)
+            невыполненные_заказы.append(заказ)
     
-    return total_revenue, updated_stock, canceled_orders
+    return выручка, копия_склада, невыполненные_заказы
 
 
-if __name__ == "__main__":
-    stock = [
-        {"id": 1, "name": "Laptop", "price": 50000, "qty": 10},
-        {"id": 2, "name": "Mouse", "price": 1500, "qty": 50},
-        {"id": 3, "name": "Keyboard", "price": 3000, "qty": 30},
-        {"id": 4, "name": "Monitor", "price": 20000, "qty": 5}
-    ]
-    
-    orders = [
-        {"id": 1, "count": 2},
-        {"id": 2, "count": 60},
-        {"id": 3, "count": 10},
-        {"id": 5, "count": 5},
-        {"id": 4, "count": 3}
-    ]
-    
-    revenue, new_stock, canceled = process_orders(stock, orders)
-    
-    print(f"Общая выручка: {revenue}")
-    print("\nОбновленный склад:")
-    for item in new_stock:
-        print(f"  {item['name']}: {item['qty']} шт.")
-    
-    print("\nОтмененные заказы:")
-    if canceled:
-        for order in canceled:
-            print(f"  Товар ID {order['id']}: запрошено {order['count']} шт.")
-    else:
-        print("  Нет отмененных заказов")
-    
-    print("\nИсходный склад:")
-    for item in stock:
-        print(f"  {item['name']}: {item['qty']} шт.")
+исходный_склад = [
+    {"id": 1, "name": "Ноутбук", "price": 50000, "qty": 10},
+    {"id": 2, "name": "Мышь", "price": 1500, "qty": 50},
+    {"id": 3, "name": "Клавиатура", "price": 3000, "qty": 30},
+    {"id": 4, "name": "Монитор", "price": 20000, "qty": 5}
+]
+
+список_заказов = [
+    {"id": 1, "count": 2},
+    {"id": 2, "count": 60},
+    {"id": 3, "count": 10},
+    {"id": 5, "count": 5},
+    {"id": 4, "count": 3}
+]
+
+прибыль, обновленный_склад, отмененные_заказы = обработать_заказы(исходный_склад, список_заказов)
+
+print(f"Общая выручка: {прибыль}")
+
+print("\nОбновленный склад:")
+for товар in обновленный_склад:
+    print(f"  {товар['name']}: {товар['qty']} шт.")
+
+print("\nОтмененные заказы:")
+if отмененные_заказы:
+    for заказ in отмененные_заказы:
+        print(f"  Товар ID {заказ['id']}: запрошено {заказ['count']} шт.")
+else:
+    print("  Нет отмененных заказов")
